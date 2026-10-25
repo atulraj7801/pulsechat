@@ -1,0 +1,38 @@
+{
+  "name": "pulsechat",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build --workspaces",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "npm run test --workspaces",
+    "test:integration": "npm run test:integration -w backend",
+    "db:migrate": "npm run db:migrate -w backend",
+    "db:seed": "npm run db:seed -w backend",
+    "check": "npm run lint && npm test && npm run build",
+    "setup": "node scripts/setup-env.js",
+    "test:all": "npm test && npm run test:integration",
+    "verify": "npm run lint && npm run test:all && npm run build",
+    "db:inspect": "node scripts/inspect-db.js",
+    "redis:inspect": "node scripts/inspect-redis.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "concurrently": "^9.2.1"
+  }
+}
